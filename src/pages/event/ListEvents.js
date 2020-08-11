@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import bestSeatApi from '../../api';
+import { useDispatch, useSelector } from 'react-redux';
+import { getListEvents } from 'store/modules/event/actions'
 import { Table, Button } from 'react-bootstrap';
+import { getEventsList } from 'store/modules/event/selector';
 
 const ListEvents = () => {
+  const dispatch = useDispatch();
   const router = useRouter()
-  const [events, setEvents] = useState([]);
+  const events = useSelector(getEventsList)
 
   useEffect(() => {
-    async function loadEvents() {
-      const response = await bestSeatApi.get('/events');
-      setEvents(response.data);
-    }
-
-    loadEvents();
-  }, []);
+   dispatch(getListEvents())
+  });
 
   return(
     <>
@@ -45,7 +43,7 @@ const ListEvents = () => {
             </tr>
           </thead>
           <tbody>
-            {events.map(event=> (
+            {[].map(event=> (
               <tr>
                 <td>1</td>
                 <td>Mark</td>

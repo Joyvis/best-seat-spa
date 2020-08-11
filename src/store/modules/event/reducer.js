@@ -1,16 +1,25 @@
-import { createReducer } from '@reduxjs/toolkit';
 import {
-  postCreateEvent,
-  getBestSeat
+  GET_LIST_EVENTS,
+  GET_LIST_EVENTS_SUCCESS,
+  GET_LIST_EVENTS_ERROR
 } from './actions';
 
-const event = createReducer([], {
-  [postCreateEvent]: (state, action) => {
+const initialState = {
+  events: [],
+  isFetching: false
+}
 
-  },
-  [getBestSeat]: (state, action) => {
-
+const eventReducer = (state = initialState, action = {}) => {
+  switch (action.type) {
+    case GET_LIST_EVENTS:
+      return { ...state, isFetching: true };
+    case GET_LIST_EVENTS_SUCCESS:
+      return { ...state, isFetching: false, events: action.payload.data };
+    case GET_LIST_EVENTS_ERROR:
+      return { ...state, isFetching: false, errorMessage: action.payload.message };
+    default: 
+      return state
   }
-});
+}
 
-export default event
+export default eventReducer;
