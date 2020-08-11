@@ -7,12 +7,12 @@ import { getEventsList } from 'store/modules/event/selector';
 
 const ListEvents = () => {
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
   const events = useSelector(getEventsList)
 
   useEffect(() => {
-   dispatch(getListEvents())
-  });
+    dispatch(getListEvents())
+  }, []);
 
   return(
     <>
@@ -43,8 +43,8 @@ const ListEvents = () => {
             </tr>
           </thead>
           <tbody>
-            {[].map(event=> (
-              <tr>
+            {events.map(event=> (
+              <tr key={event.id}>
                 <td>1</td>
                 <td>Mark</td>
                 <td>Otto</td>
