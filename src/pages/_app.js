@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux';
-import { NavigationMenu } from 'local-components';
+import { NavigationMenu } from 'components';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 

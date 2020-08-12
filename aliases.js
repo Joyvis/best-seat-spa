@@ -2,7 +2,8 @@ const path = require('path');
 const root = path.resolve(__dirname);
 
 const alias = {
-  'local-components': `${root}/src/components`,
+  'components': `${root}/src/components`,
+  'pages': `${root}/src/pages`,
   'store': `${root}/src/store`
   
 };

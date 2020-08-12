@@ -1,7 +1,3 @@
-import React from 'react';
+import ListEvents from 'pages/event';
 
-const HomePage = () => {
-  return <span>Hello World</span>
-}
-
-export default HomePage
+export default ListEvents;

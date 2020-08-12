@@ -14,6 +14,7 @@ const ListEvents = () => {
     dispatch(getListEvents())
   }, []);
 
+  console.log(events)
   return(
     <>
     <div className="row">
@@ -45,11 +46,11 @@ const ListEvents = () => {
           <tbody>
             {events.map(event=> (
               <tr key={event.id}>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+                <td>{event.id}</td>
+                <td>{event.name}</td>
+                <td>{event.rows}</td>
+                <td>{event.columns}</td>
+                <td></td>
               </tr>
             ))}
             </tbody>
