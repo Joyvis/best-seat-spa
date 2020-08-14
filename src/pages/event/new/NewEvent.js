@@ -55,7 +55,7 @@ const NewEvent = () => {
                 Submit
               </Button>
 
-              <Button className="ml-3" variant="secondary">
+              <Button className="ml-3"onClick={() => router.push('/event')} variant="secondary">
                 Back
               </Button>
             </div>

@@ -5,7 +5,6 @@ import { getEventById, getBestSeat, postCreateReservation } from 'store/modules/
 import { getCurrentEvent, getBestSeats } from 'store/modules/event/selector';
 
 import { Table, Button, Form, ButtonGroup } from 'react-bootstrap';
-import store from 'store'
 
 const NewReservation = () => {
   const router = useRouter();
@@ -80,7 +79,7 @@ const NewReservation = () => {
                 Submit
               </Button>
 
-              <Button className="ml-3" variant="secondary">
+              <Button className="ml-3"onClick={() => router.push('/event')} variant="secondary">
                 Back
               </Button>
             </div>
