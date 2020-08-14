@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getListEvents } from 'store/modules/event/actions'
+import { getListEvents, setCurrentEvent } from 'store/modules/event/actions'
 import { Table, Button } from 'react-bootstrap';
 import { getEventsList } from 'store/modules/event/selector';
 
@@ -14,7 +14,11 @@ const ListEvents = () => {
     dispatch(getListEvents())
   }, []);
 
-  console.log(events)
+  const onClick = (event) => {
+    dispatch(setCurrentEvent(event))
+    router.push(`/event/${event.id}/reservation/new`)
+  }
+
   return(
     <>
     <div className="row">
@@ -41,6 +45,7 @@ const ListEvents = () => {
               <th>Rows</th>
               <th>Columns</th>
               <th>Free Seats</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -50,7 +55,12 @@ const ListEvents = () => {
                 <td>{event.name}</td>
                 <td>{event.rows}</td>
                 <td>{event.columns}</td>
-                <td></td>
+                <td>{event.free_seats}</td>
+                <td>
+                  <Button variant="primary" size="sm" onClick={() => onClick(event)}>
+                    Reservate
+                  </Button>
+                </td>
               </tr>
             ))}
             </tbody>
