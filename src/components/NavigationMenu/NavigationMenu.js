@@ -10,7 +10,6 @@ const NavigationMenu = () => {
         <Navbar.Brand href="#home">Best Seat</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link onClick={() => router.push('/event')}>Events</Nav.Link>
-          <Nav.Link href="#features">Reservations</Nav.Link>
         </Nav>
       </Navbar>
     </>
