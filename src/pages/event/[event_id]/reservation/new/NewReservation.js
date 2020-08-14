@@ -1,23 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEventById, getBestSeat, postCreateReservation } from 'store/modules/event/actions'
-import { getCurrentEvent, getBestSeats } from 'store/modules/event/selector';
+import { getCurrentEvent, getBestSeats, getEventErrors, getReservations } from 'store/modules/event/selector';
 
-import { Table, Button, Form, ButtonGroup } from 'react-bootstrap';
+import { Table, Button, Form, ButtonGroup, Alert, InputGroup } from 'react-bootstrap';
 
 const NewReservation = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const currentEvent = useSelector(getCurrentEvent)
   const bestSeats = useSelector(getBestSeats)
+  const eventErrors = useSelector(getEventErrors)
+  const reservations = useSelector(getReservations)
   const eventId = router.query.event_id;
+  const [seatQuantity, setSeatQuantity] = useState(0)
 
-  const onChange = (e) => {
-    const inputValue = e.target.value 
-
-    if(inputValue != '' && inputValue != 0){
-      dispatch(getBestSeat(eventId, inputValue))
+  const onClick = () => {
+    if(seatQuantity != '' && seatQuantity != "0"){
+      dispatch(getBestSeat(eventId, seatQuantity))
     }
   }
 
@@ -26,9 +27,10 @@ const NewReservation = () => {
     const reservations = {
       reservations : bestSeats
     }
+    const quantity = e.target.quantity_of_seats.value
 
-    dispatch(postCreateReservation(reservations, eventId))
-    router.push('/event')
+    if(quantity != "" && quantity != 0)
+      dispatch(postCreateReservation(reservations, eventId))
   }
 
   useEffect(() => {
@@ -39,6 +41,12 @@ const NewReservation = () => {
     }
   }, [currentEvent, router])
 
+  useEffect(() => {
+    if(reservations)
+      router.push('/event')
+  })
+
+
   return (
     <>
     <div className="row">
@@ -46,6 +54,16 @@ const NewReservation = () => {
         <h1>New Reservation</h1>
       </div>
     </div>
+
+    { eventErrors && (
+      <div className="row">
+        <div className="col-md-12">
+          <Alert variant="danger">
+            { eventErrors }
+          </Alert>
+        </div>
+      </div>
+    )}
 
     <div className="row">
       <div className="col-md-12">
@@ -57,7 +75,14 @@ const NewReservation = () => {
 
           <Form.Group controlId="eventForm.QuantityOfSeats">
             <Form.Label>Quantity of Seats</Form.Label>
-            <Form.Control name="quantity_of_seats" type="number" onChange={ (e) => onChange(e) } required={true} placeholder="How Many Seats Do You Want?" />
+            <InputGroup className="mb-3">
+              <Form.Control name="quantity_of_seats" type="number" onChange={(e) => setSeatQuantity(e.target.value)} required={true} placeholder="How Many Seats Do You Want?" />
+              <InputGroup.Append>
+                <Button variant="outline-secondary" onClick={() => onClick()}>
+                  Search 
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
           </Form.Group>
 
           <div className="row">

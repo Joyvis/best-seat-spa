@@ -35,13 +35,13 @@ const eventReducer = (state = events, action = {}) => {
     case GET_BEST_SEAT:
       return { ...state, isFetching: true };
     case GET_BEST_SEAT_SUCCESS:
-      return { ...state, isFetching: false, bestSeats: action.payload.data };
+      return { ...state, isFetching: false, bestSeats: action.payload.data, errorMessage: null };
     case GET_BEST_SEAT_ERROR:
-      return { ...state, isFetching: false, errorMessage: action.payload.message };
+      return { ...state, isFetching: false, errorMessage: action.payload.response.data.errors.base };
     case POST_CREATE_RESERVATION:
       return { ...state, isFetching: true };
     case GET_CREATE_RESERVATION_SUCCESS:
-      return { ...state, isFetching: false, bestSeats: action.payload.data };
+      return { ...state, isFetching: false, reservations: action.payload.data };
     case GET_CREATE_RESERVATION_ERROR:
       return { ...state, isFetching: false, errorMessage: action.payload.message };
     case POST_CREATE_EVENT:

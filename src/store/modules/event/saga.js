@@ -50,7 +50,6 @@ export function* postCreateNewEvent(action) {
 
 export function* postCreateReservation(action) {
   try {
-    console.log(action.eventId)
     const request = yield call(postCreateReservationAPI, action.data, action.eventId);
     yield put(getCreateReservationSuccess(request));
   } catch (error) {
