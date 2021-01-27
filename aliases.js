@@ -5,7 +5,6 @@ const alias = {
   'components': `${root}/src/components`,
   'pages': `${root}/src/pages`,
   'store': `${root}/src/store`
-  
 };
 
 module.exports = alias;
