@@ -15,6 +15,6 @@ RUN yarn install
 
 RUN yarn build
 
-EXPOSE 3000
+EXPOSE 80
 
-CMD [ "yarn", "dev", "-H", "0.0.0.0", "-p", "3000"]
+CMD [ "yarn", "dev", "-H", "0.0.0.0", "-p", "80"]
